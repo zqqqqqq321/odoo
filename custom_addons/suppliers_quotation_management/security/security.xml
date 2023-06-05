@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data noupdate="1">
+        <!-- Group: Manager -->
+        <record id="group_manager" model="res.groups">
+            <field name="name">Manager</field>
+        </record>
+
+        <!-- Group: User -->
+        <record id="group_user" model="res.groups">
+            <field name="name">User</field>
+        </record>
+    </data>
+</odoo>

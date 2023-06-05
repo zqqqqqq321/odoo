@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <!--tree-->
+    <record id="products_tree_view" model="ir.ui.view">
+        <field name="name">All Supplier Products</field>
+        <field name="model">product.model</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="mpn"/>
+                <field name="brand"/>
+                <field name="description" string= "Product Description"/>
+                <field name="minimum_price" string="Minimum Price" readonly="1"/>
+                <field name="last_updated_date" string="Last Updated Date" readonly="1"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="products_act_window" model="ir.actions.act_window">
+        <field name="name">All Supplier Products</field>
+        <field name="res_model">product.model</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+       <!--tree-->
+
+    <record id="quotations_tree_view" model="ir.ui.view">
+        <field name="name">Quotation</field>
+        <field name="model">quotation.model</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="supplier_id" string="Supplier"/>
+                <field name="product_id" string="Product"/>
+                <field name="price"/>
+                <field name="available_units"/>
+                <field name="quotation_date" string="Quotation Date"/>
+            </tree>
+        </field>
+    </record>
+
+
+    <record id="quotations_act_window" model="ir.actions.act_window">
+        <field name="name">Quotation</field>
+        <field name="res_model">quotation.model</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+
+    <menuitem name="PCOnline QMS"
+              id="suppliers_quotation_root"
+              />
+    <menuitem name="Products"
+              id="products_menu"
+              parent="suppliers_quotation_root"
+              action="products_act_window"
+              />
+    <menuitem name="Quotations"
+              id="quotations_menu"
+              parent="suppliers_quotation_root"
+              action="quotations_act_window"
+              />
+
+
+
+</odoo>

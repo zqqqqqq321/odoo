@@ -10,6 +10,7 @@ class Supplier(models.Model):
         ('tds', 'TDS'),
         ('unavis', 'Unavis')
     ], string='Supplier Name')
+    details = fields.Text(string='Details')
 
     quotation_ids = fields.One2many('quotation.model', 'supplier_id', string='Quotations')
 

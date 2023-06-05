@@ -8,4 +8,4 @@ class Quotation(models.Model):
     product_id = fields.Many2one('product.model', string='Product')
     price = fields.Float(string='Quoted Price')
     available_units = fields.Integer(string='Available Units')
-    quotation_date = fields.Date(string='Quotation Date')
+    quotation_date = fields.Datetime(string='Quotation Date', default=fields.Datetime.now)
