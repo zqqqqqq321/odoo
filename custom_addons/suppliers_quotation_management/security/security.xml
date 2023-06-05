@@ -1,14 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
-    <data noupdate="1">
-        <!-- Group: Manager -->
-        <record id="group_manager" model="res.groups">
-            <field name="name">Manager</field>
-        </record>
 
-        <!-- Group: User -->
-        <record id="group_user" model="res.groups">
-            <field name="name">User</field>
-        </record>
+       <data>
+           <record id="suppliers_quotation_management.module_category" model="ir.module.category">
+               <field name="name">PCOnline</field>
+               <field name="description">PCOnline</field>
+           </record>
+
+           <record id="suppliers_quotation_management.group_base" model="res.groups">
+               <field name="category_id" ref="suppliers_quotation_management.module_category"/>
+               <field name="name">User Rights</field>
+               <field name="implied_ids" eval="[(4, ref('base.group_user'))]"/>
+           </record>
+
+           <record id="suppliers_quotation_management.group_manager" model="res.groups">
+               <field name="category_id" ref="suppliers_quotation_management.module_category"/>
+               <field name="name">Administrator Rights</field>
+               <field name="implied_ids" eval="[(4, ref('suppliers_quotation_management.group_base'))]"/>
+           </record>
+
     </data>
 </odoo>

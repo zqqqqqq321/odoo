@@ -8,10 +8,9 @@
         'security/ir.model.access.csv',
         'views/product_views.xml',
         'views/product_detail_views.xml',
-        # 'data/cron.xml'
+        'security/security.xml',
     ],
     'installable': True,
     'application': True,
-    # 'auto_install': True,
     'license': 'LGPL-3',
 }
