@@ -38,13 +38,41 @@
         </field>
     </record>
 
-
     <record id="quotations_act_window" model="ir.actions.act_window">
         <field name="name">Quotation</field>
         <field name="res_model">quotation.model</field>
         <field name="view_mode">tree,form</field>
     </record>
 
+    <record id="view_excel_upload_form" model="ir.ui.view">
+        <field name="name">Supplier Quotation Excel Upload.Form</field>
+        <field name="model">supplier.quotation.excel.upload.model</field>
+        <field name="arch" type="xml">
+            <form string="Excel Upload">
+                <header>
+                    <button name="upload_excel" string="Upload" type="object" class="btn-primary"/>
+                    <button string="Cancel" class="btn-secondary" special="cancel"/>
+                </header>
+                <sheet>
+                    <group>
+                        <field name="name"/>
+                        <field name="file" filename="name"/>
+                    </group>
+                </sheet>
+                <footer>
+                    <button name="upload_excel" string="Upload" type="object" class="btn-primary"/>
+                    <button string="Cancel" class="btn-secondary" special="cancel"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+
+    <record id="import_quotations_act_window" model="ir.actions.act_window">
+        <field name="name">Excel Upload</field>
+        <field name="res_model">supplier.quotation.excel.upload.model</field>
+        <field name="view_mode">form</field>
+        <field name="view_id" ref="view_excel_upload_form"/>
+    </record>
 
     <menuitem name="PCOnline QMS"
               id="suppliers_quotation_root"
@@ -59,6 +87,13 @@
               parent="suppliers_quotation_root"
               action="quotations_act_window"
               />
+    <menuitem name="Import Quotation"
+              id="import_quotations_menu"
+              parent="suppliers_quotation_root"
+              action="import_quotations_act_window"
+              />
+
+
 
 
 

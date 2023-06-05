@@ -5,3 +5,5 @@ access_quotation_model_user,quotation.model,model_quotation_model,suppliers_quot
 access_product_model_manager,product.model,model_product_model,suppliers_quotation_management.group_manager,1,1,1,1
 access_supplier_model_manager,supplier.model,model_supplier_model,suppliers_quotation_management.group_manager,1,1,1,1
 access_quotation_model_manager,quotation.model,model_quotation_model,suppliers_quotation_management.group_manager,1,1,1,1
+upload_excel_model_user,supplier.quotation.excel.upload.model,model_supplier_quotation_excel_upload_model,suppliers_quotation_management.group_base,1,1,1,1
+upload_excel_model_manager,supplier.quotation.excel.upload.model,model_supplier_quotation_excel_upload_model,suppliers_quotation_management.group_manager,1,1,1,1

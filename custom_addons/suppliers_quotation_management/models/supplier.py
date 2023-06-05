@@ -5,10 +5,10 @@ class Supplier(models.Model):
     _description = 'Supplier Model'
 
     name = fields.Selection([
-        ('cravings', 'Cravings'),
-        ('Newegg', 'Newegg'),
-        ('tds', 'TDS'),
-        ('unavis', 'Unavis')
+        ('cravings', 'cravings'),
+        ('newegg', 'newegg'),
+        ('tds', 'tds'),
+        ('unavis', 'unavis')
     ], string='Supplier Name')
     details = fields.Text(string='Details')
 
