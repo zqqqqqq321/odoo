@@ -52,13 +52,6 @@ class ExcelUpload(models.Model):
                 else:
                     raise ValueError("Unable to find mapping for the given supplier")
 
-                # Check if the required columns exist
-                required_columns = [mpn_column, description_column, price_column, available_units_column]
-                missing_columns = [col for col in required_columns if col not in df.columns]
-                if missing_columns:
-                    raise ValueError("Missing columns in the Excel file: {}".format(", ".join(missing_columns)))
-
-                # Process the data from the Excel file as per your requirements
                 for _, row in df.iterrows():
                     mpn = row[mpn_column]
                     description = row[description_column]
