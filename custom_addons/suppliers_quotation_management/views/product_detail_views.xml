@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 <odoo>
-    <!-- form视图 -->
     <record id="product_details_view" model="ir.ui.view">
         <field name="name">Product Details</field>
         <field name="model">product.model</field>
@@ -11,37 +10,22 @@
                     <h1> <field name="mpn"/> </h1>
                     <group>
                         <field name="mpn" string="MPN" />
-                        <field name="brand" string="Brand"/>
                         <field name="description" string="Product Details"/>
                         <field name="minimum_price" string="Latest Minimum Price"/>
                         <field name="last_updated_date" string="Last Updated"/>
                     </group>
-                    <group>
-                         <field name="quotation_ids" widget="one2many_list">
-                             <tree>
-                                 <field name="supplier_id" string="Supplier Name" related="supplier_id.name" />
-                                 <field name="supplier_id" string="Supplier Details" related="supplier_id.details" />
-                                 <field name="price" string="Quoted Price" />
-                                 <field name="available_units" string="Available Units" />
-                                 <field name="quotation_date" string="Quotation Date" />
-                                 <field name="id" string="Quotation ID" />
-                             </tree>
-                         </field>
+                    <group string="Quotations">
+                        <field name="quotation_ids" widget="one2many_list">
+                            <tree>
+                                <field name="supplier_id" string="Supplier Name" related="supplier_id.name" />
+                                <field name="supplier_id" string="Supplier Details" related="supplier_id.details" />
+                                <field name="price" string="Quoted Price" />
+                                <field name="available_units" string="Available Units" />
+                                <field name="quotation_date" string="Quotation Date" />
+                                <field name="id" string="Quotation ID" />
+                            </tree>
+                        </field>
                     </group>
-<!--                    <notebook>-->
-<!--                        <page string="Suppliers">-->
-<!--                            <field name="quotation_ids" widget="one2many_list">-->
-<!--                                <tree>-->
-<!--                                    <field name="supplier_id" string="Supplier Name" related="supplier_id.name" />-->
-<!--                                    <field name="supplier_id" string="Supplier Details" related="supplier_id.details" />-->
-<!--                                    <field name="price" string="Quoted Price" />-->
-<!--                                    <field name="available_units" string="Available Units" />-->
-<!--                                    <field name="quotation_date" string="Quotation Date" />-->
-<!--                                    <field name="id" string="Quotation ID" />-->
-<!--                                </tree>-->
-<!--                            </field>-->
-<!--                        </page>-->
-<!--                    </notebook>-->
                 </sheet>
             </form>
         </field>

@@ -1,4 +1,4 @@
-from odoo import models, fields, api
+from odoo import models, fields
 import io
 import pandas as pd
 import base64
@@ -19,8 +19,11 @@ class ExcelUpload(models.Model):
 
         for record in self:
             if record.file:
-                file_content = io.BytesIO(base64.b64decode(record.file))
-                df = pd.read_excel(file_content)
+                try:
+                    file_content = io.BytesIO(base64.b64decode(record.file))
+                    df = pd.read_excel(file_content)
+                except (ValueError, pd.errors.ParserError) as e:
+                    raise ValueError("Error parsing the Excel file: {}".format(str(e)))
 
                 file_name = record.name.split(".xlsx")[0].lower()
                 # Determine the mapping based on the file name
@@ -48,7 +51,12 @@ class ExcelUpload(models.Model):
                     available_units_column = 'Qty'
                 else:
                     raise ValueError("Unable to find mapping for the given supplier")
-                    return
+
+                # Check if the required columns exist
+                required_columns = [mpn_column, description_column, price_column, available_units_column]
+                missing_columns = [col for col in required_columns if col not in df.columns]
+                if missing_columns:
+                    raise ValueError("Missing columns in the Excel file: {}".format(", ".join(missing_columns)))
 
                 # Process the data from the Excel file as per your requirements
                 for _, row in df.iterrows():
@@ -62,16 +70,36 @@ class ExcelUpload(models.Model):
                     # Find the supplier based on the record name
                     supplier = Supplier.search([('name', '=', file_name)], limit=1)
 
-                    # If product doesn't exist, create a new one
                     if not product:
-                        product = Product.create({'mpn': mpn, 'description': description})
-
-                    # Create quotation entry
-                    quotation = Quotation.create({
-                        'supplier_id': supplier.id,
-                        'product_id': product.id,
-                        'price': price,
-                        'available_units': available_units,
-                    })
+                        try:
+                            # Create a new product and quotation
+                            product = Product.create({
+                                'mpn': mpn,
+                                'description': description,
+                            })
+                            quotation = Quotation.create({
+                                'supplier_id': supplier.id,
+                                'product_id': product.id,
+                                'price': price,
+                                'available_units': available_units,
+                            })
+                            # Add the quotation to the product's quotation_ids
+                            product.write({'quotation_ids': [(4, quotation.id)]})
+                        except Exception as e:
+                            raise ValueError("Error creating a new product and quotation: {}".format(str(e)))
+                    else:
+                        try:
+                            # Update existing product and add new quotation
+                            quotation = Quotation.create({
+                                'supplier_id': supplier.id,
+                                'product_id': product.id,
+                                'price': price,
+                                'available_units': available_units,
+                            })
+                            # Add the quotation to the product's quotation_ids
+                            product.write({'quotation_ids': [(4, quotation.id)]})
+                        except Exception as e:
+                            raise ValueError(
+                                "Error updating existing product and adding a new quotation: {}".format(str(e)))
 
 

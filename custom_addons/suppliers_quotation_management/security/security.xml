@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
-
        <data>
            <record id="suppliers_quotation_management.module_category" model="ir.module.category">
                <field name="name">PCOnline</field>
